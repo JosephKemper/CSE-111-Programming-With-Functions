@@ -1,19 +1,37 @@
-from datetime import date
-current_date = date.today()
-print(current_date)
-print("Day: " + str(current_date.day))
-print("Month: " + str(current_date.month))
-print("Year: " + str(current_date.year))
+# Example 2
+
+from draw2d import \
+    start_drawing, draw_line, draw_text, finish_drawing
+
+def main():
+    scene_width = 600
+    scene_height = 375
+
+    # Call the start_drawing function in the draw2d.py
+    # library which will open a window and create a canvas.
+    canvas = start_drawing("Grid", scene_width, scene_height)
+
+    draw_grid(canvas, scene_width, scene_height, 50)
+
+    # Call the finish_drawing function
+    # in the draw2d.py library.
+    finish_drawing(canvas)
 
 
-# Call the now() method to get the current
-# date and time as a datetime object from
-# the computer's operating system.
-current_date_and_time = date.today()
+def draw_grid(canvas, width, height, interval, color="blue"):
+    # Draw a vertical line at every x interval.
+    label_y = 15
+    for x in range(interval, width, interval):
+        draw_line(canvas, x, 0, x, height, fill=color)
+        draw_text(canvas, x, label_y, f"{x}", fill=color)
 
-# Call the weekday() method to get the day of the
-# week from the current_date_and_time object.
-day_of_week = current_date_and_time.weekday()
+    # Draw a horizontal line at every y interval.
+    label_x = 15
+    for y in range(interval, height, interval):
+        draw_line(canvas, 0, y, width, y, fill=color)
+        draw_text(canvas, label_x, y, f"{y}", fill=color)
 
-# Print the day of the week for the user to see.
-print(day_of_week)
+
+# Call the main function so that
+# this program will start executing.
+main()
