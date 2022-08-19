@@ -19,7 +19,11 @@ def main():
     # Call your drawing functions such
     # as draw_sky and draw_ground here.
     draw_sky(canvas, scene_width, scene_height)
-    #draw_ground(canvas, scene_width, scene_height)
+    draw_ground(canvas, scene_width, scene_height)
+    x = sun_position(scene_width)
+    y = sun_position(scene_height)
+    draw_sun(canvas,x,y)
+
 
 
     draw_grid (canvas, scene_width, scene_height, 50)
@@ -38,9 +42,21 @@ def draw_sky(canvas, scene_width, scene_height):
     draw_rectangle (canvas,0,scene_height /3, 
     scene_width, scene_height, width=0, fill= "sky blue")
 
-def draw_ground():
-    pass
+def draw_ground(canvas, scene_width, scene_height):
+    """Draw the background of the ground color"""
+    draw_rectangle(canvas, 0,0,scene_width, scene_height/3, width=0,fill="tan4")
 
+def sun_position(scene_height=None, scene_width=None):
+    if scene_height != None:
+        y = scene_height-(scene_height/10)*2 
+        return y
+    if scene_width != None:
+        x = scene_width/2
+        return x
+
+
+def draw_sun (canvas,x,y):
+    pass
 
 def draw_grid (canvas, width, height, interval, color = "blue"):
     label_y = 15
@@ -55,4 +71,5 @@ def draw_grid (canvas, width, height, interval, color = "blue"):
 
 # Call the main function so that
 # this program will start executing.
-main()
+if __name__ == "__main__":
+    main()
