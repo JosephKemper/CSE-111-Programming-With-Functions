@@ -17,11 +17,15 @@ Write a program that prompts a user to enter the length of a
 pendulum in meters and then computes and prints the time in
 seconds that it takes for that pendulum to swing back and forth.
 """
-from cmath import pi
+
+# Math Library used for math.pi and math.sqrt functions
 import math
 
+# Convert User Provided Pendulum length to float
 h = float(input("Length of the pendulum (meters): "))
 
+# Compute Seconds required for pendulum swing
 t = (2 * math.pi) * (math.sqrt(h / 9.81))
 
+# Display formated time to user
 print (f"Time (seconds): {t:.2f}")
