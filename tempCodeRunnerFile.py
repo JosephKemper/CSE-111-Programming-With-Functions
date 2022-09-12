@@ -1,1 +1,2 @@
-ems, packing {items_per_box} items in each box, you will need {boxes_needed} boxes.")
+# Import the functions from the Draw 2-D library
+# so that they can be used in this program.
