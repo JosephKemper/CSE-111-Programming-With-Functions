@@ -88,7 +88,9 @@ def test_get_verb():
         verb= get_verb(1, "future")
         assert verb in future_tense_verbs
 
+# TODO: #9 #8 Write def test_get_preposition matching requirements outlined in 06 Prove Assignment
 
+# TODO: #10 write def test_get_prepositional_phrase matching requirements outlined in 06 Prove Assignment
 
 # Call the main function that is part of pytest so that the
 # computer will execute the test functions in this file.

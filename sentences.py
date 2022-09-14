@@ -110,5 +110,9 @@ def get_verb (quantity, tense) -> str:
     verb = random.choice(verbs)
     return verb
 
+# TODO: #6 Write a def get_preposition function matching requirements described in 06 Prove Assignment
+
+# TODO: #7 Write a def get_prepositional_phrase function matching requirements described in 06 Prove Assignment
+
 if __name__ == "__main__":
     main()
