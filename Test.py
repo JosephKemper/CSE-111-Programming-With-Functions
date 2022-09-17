@@ -1,9 +1,17 @@
-if week_day == 1 or week_day == 2:
-    print('you win a 10 percent discount')
-    discount = subtotal * 0.1
-    subtotal = subtotal * 0.9
-else:
-    print('Thanks for your shop')
+from sentences import get_prepositional_phrase
 
-taxes = subtotal * 0.06
-total = taxes + subtotal
+# Test Singular Prepositional phrases
+for _ in range(4):
+    singular_phrase = get_prepositional_phrase(1)
+    singular_list = singular_phrase.split()
+    
+    print(singular_list[0])
+    print(singular_list[1])
+    print(singular_list[2])
+
+# Test Plural Prepositional phrases
+for _ in range(4):
+    plural_phrase = get_prepositional_phrase(2)
+    print(plural_phrase[0])
+    print(plural_phrase[1])
+    print(plural_phrase[2])
