@@ -1,17 +1,36 @@
-from sentences import get_prepositional_phrase
+# Example 12
 
-# Test Singular Prepositional phrases
-for _ in range(4):
-    singular_phrase = get_prepositional_phrase(1)
-    singular_list = singular_phrase.split()
-    
-    print(singular_list[0])
-    print(singular_list[1])
-    print(singular_list[2])
+def main():
+    print("main()")
+    x = 5
+    lx = [7, -2]
+    print(f"Before calling modify_args(): x {x}  lx {lx}")
 
-# Test Plural Prepositional phrases
-for _ in range(4):
-    plural_phrase = get_prepositional_phrase(2)
-    print(plural_phrase[0])
-    print(plural_phrase[1])
-    print(plural_phrase[2])
+    # Pass one integer and one list
+    # to the modify_args function.
+    modify_args(x, lx)
+
+    print(f"After calling modify_args():  x {x}  lx {lx}")
+
+
+def modify_args(n, alist):
+    """Demonstrate that the computer passes a value
+    for integers and passes a reference for lists.
+    Parameters
+        n: A number
+        alist: A list
+    Return: nothing
+    """
+    print("   modify_args(n, alist)")
+    print(f"   Before changing n and alist: n {n}  alist {alist}")
+
+    # Change the values of both parameters.
+    n += 1
+    alist.append(4)
+
+    print(f"   After changing n and alist:  n {n}  alist {alist}")
+
+
+# Call main to start this program.
+if __name__ == "__main__":
+    main()
