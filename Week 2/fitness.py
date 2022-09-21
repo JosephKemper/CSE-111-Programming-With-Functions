@@ -51,22 +51,20 @@ def compute_age(birth_str):
     return years
 
 
-def kg_from_lb(pounds):
+def kg_from_lb(pounds) ->float:
     """Convert a mass in pounds to kilograms.
     Parameter pounds: a mass in U.S. pounds.
     Return: the mass in kilograms.
     """
-    weight_in_kilos = pounds*0.45359237
-    return weight_in_kilos
+    return pounds*0.45359237
 
 
-def cm_from_in(inches):
+def cm_from_in(inches)->float:
     """Convert a length in inches to centimeters.
     Parameter inches: a length in inches.
     Return: the length in centimeters.
     """
-    height_in_cm = inches * 2.54
-    return height_in_cm
+    return inches * 2.54
 
 
 def body_mass_index(weight, height):
@@ -76,8 +74,7 @@ def body_mass_index(weight, height):
         height: a person's height in centimeters.
     Return: a person's body mass index.
     """
-    bmi = (10000*weight)/(height*height)
-    return bmi
+    return (10000*weight)/(height*height)
 
 
 def basal_metabolic_rate(gender, weight, height, age):
