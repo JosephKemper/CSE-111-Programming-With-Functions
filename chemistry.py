@@ -1,3 +1,4 @@
+# 07 Prove Milestone: Lists
 def main ():
     periodic_table_list = make_periodic_table()
     symbol_index = 0
