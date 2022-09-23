@@ -74,13 +74,13 @@ A means you strongly agree with the statement.
     "Enter D, d, a, or A: ")
     q9 = input("9. I certainly feel useless at times. "+
     "Enter D, d, a, or A: ")
-    q0 = input("10. At times I think I am no good at all. "+
+    q10 = input("10. At times I think I am no good at all. "+
     "Enter D, d, a, or A: ")
 
     print()
 
     positive_score = positive_grading(q1, q2, q4, q6, q7)
-    negative_score = negative_grading(q3, q5, q8, q9, q0)
+    negative_score = negative_grading(q3, q5, q8, q9, q10)
     score = positive_score + negative_score
 # Display results
     print(f"Your score is {score}.")
@@ -101,9 +101,9 @@ def positive_grading (q1, q2, q4, q6, q7) -> int:
             score += 0
     return score
 
-# TODO: #29 06 Team Activity Score Not calculating properly
-def negative_grading(q3, q5, q8, q9, q0) -> int:
-    negative_answers = [q3, q5, q8, q9, q0]
+
+def negative_grading(q3, q5, q8, q9, q10) -> int:
+    negative_answers = [q3, q5, q8, q9, q10]
     score = 0
 
     for q in negative_answers:
