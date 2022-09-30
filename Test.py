@@ -1,69 +1,98 @@
 # Copyright 2020, Brigham Young University-Idaho. All rights reserved.
 
 """
-Write a Python program named provinces.py that reads the contents
-of provinces.txt into a list and then modifies the list.
+A common task for many knowledge workers is to use a number, key,
+or ID to look up information about a person. For example, a
+knowledge worker may use a phone number or e-mail address as a key
+to find (or look up) additional information about a customer.
+During this activity, your team will write a Python program that
+uses a student's I-Number to look up the student's name.
 """
+import csv
+
 
 def main():
-    # Read the contents of a text file named
-    # provinces.txt into a list named provinces_list.
-    provinces_list = read_list("provinces.txt")
+    # The column headings and indexes.
+    I_NUMBER_INDEX = 0
+    NAME_INDEX = 1
 
-    # As a debugging aid, print the entire list.
-    print(provinces_list)
+    # Read the contents of a CSV file named students.csv
+    # into a dictionary named students_dict. Use the I-Number
+    # as the key in the dictionary.
+    students_dict = read_dict("students.csv", I_NUMBER_INDEX)
 
-    # Remove the first element from the list.
-    provinces_list.pop(0)
-    #print(provinces_list)
+    # Get an I-Number from the user.
+    inumber = input("Please enter an I-Number (xx-xxx-xxxx): ")
 
-    # Remove the last element from the list.
-    provinces_list.pop()
-    #print(provinces_list)
+    # The I-Numbers are stored in the CSV file as digits only (without
+    # any dashes), so we remove all dashes from the user's input.
+    inumber = inumber.replace("-", "")
 
-    # Replace all occurrrences of "AB" with "Alberta".
-    for i in range(len(provinces_list)):
-        if provinces_list[i] == "AB":
-            provinces_list[i] = "Alberta"
-    #print(provinces_list)
+    # Determine if the user input is formatted correctly.
+    if not inumber.isdigit():
+        print("Invalid character in I-Number")
+    else:
+        if len(inumber) < 9:
+            print("Invalid I-Number: too few digits")
+        elif len(inumber) > 9:
+            print("Invalid I-Number: too many digits")
+        else:
+            # The user input is a valid I-Number. Find
+            # the I-Number in the list of I-Numbers.
+            if inumber not in students_dict:
+                print("No such student")
+            else:
+                # Retrieve the student name that corresponds
+                # to the I-Number that the user entered.
+                value = students_dict[inumber]
+                name = value[NAME_INDEX]
 
-    # Call the list.count method which will count the
-    # number of times that Alberta appears in the list.
-    count = provinces_list.count("Alberta")
-
-    print()
-    print(f"Alberta occurs {count} times in the modified list.")
+                # Print the student name.
+                print(name)
 
 
-def read_list(filename):
-    """Read the contents of a text file into a list
-    and return the list that contains the lines of text.
+def read_dict(filename, key_column_index):
+    """Read the contents of a CSV file into a compound
+    dictionary and return the dictionary.
 
-    Parameter filename: the name of the text file to read
-    Return: a list of strings
+    Parameters
+        filename: the name of the CSV file to read.
+        key_column_index: the index of the column
+            to use as the keys in the dictionary.
+    Return: a compound dictionary that contains
+        the contents of the CSV file.
     """
-    # Create an empty list that will store
-    # the lines of text from the text file.
-    text_list = []
+    # Create an empty dictionary that will
+    # store the data from the CSV file.
+    dictionary = {}
 
-    # Open the text file for reading and store a reference
-    # to the opened file in a variable named text_file.
-    with open(filename, "rt") as text_file:
+    # Open the CSV file for reading and store a reference
+    # to the opened file in a variable named csv_file.
+    with open(filename, "rt") as csv_file:
 
-        # Read the contents of the text
-        # file one line at a time.
-        for line in text_file:
+        # Use the csv module to create a reader object
+        # that will read from the opened CSV file.
+        reader = csv.reader(csv_file)
 
-            # Remove white space, if there is any,
-            # from the beginning and end of the line.
-            clean_line = line.strip()
+        # The first row of the CSV file contains column
+        # headings and not data, so this statement skips
+        # the first row of the CSV file.
+        next(reader)
 
-            # Append the clean line of text
-            # onto the end of the list.
-            text_list.append(clean_line)
+        # Read the rows in the CSV file one row at a time.
+        # The reader object returns each row as a list.
+        for row_list in reader:
 
-    # Return the list that contains the lines of text.
-    return text_list
+            # From the current row, retrieve the data
+            # from the column that contains the key.
+            key = row_list[key_column_index]
+
+            # Store the data from the current row
+            # into the dictionary.
+            dictionary[key] = row_list
+
+    # Return the dictionary.
+    return dictionary
 
 
 # If this file was executed like this:
