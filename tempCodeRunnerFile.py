@@ -1,3 +1,1 @@
-symbol_index = 0
-    name_index = 1
-    mass_index = 2
+# Import the csv module so that it can be used
