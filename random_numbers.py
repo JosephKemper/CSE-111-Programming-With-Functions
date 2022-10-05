@@ -1,6 +1,6 @@
 # 07 Team Activity: Lists
 import random
-# TODO: #25 Write the main function for 07 Team
+
 def main():
     # default number list
     numbers = [16.2, 75.1, 52.3]
@@ -19,7 +19,7 @@ def main():
     # Prints the numbers list
     print (f"numbers {numbers}")
 
-# TODO: #24 Write the append_random_numbers function for 07 team
+
 def append_random_numbers(numbers_list, quantity=1):
     
     # Use the paramater quantity to determine how many numbers to generate inside of a loop. 
