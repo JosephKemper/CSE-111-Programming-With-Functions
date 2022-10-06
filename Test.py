@@ -1,54 +1,218 @@
-# Copyright 2020, Brigham Young University-Idaho. All rights reserved.
-
-"""
-A common task for many knowledge workers is to use a number, key,
-or ID to look up information about a person. For example, a
-knowledge worker may use a phone number or e-mail address as a key
-to find (or look up) additional information about a customer.
-During this activity, your team will write a Python program that
-uses a student's I-Number to look up the student's name.
-"""
 import csv
+# Import the datetime class from the datetime
+# module so that it can be used in this program.
+from datetime import datetime
+
+def main ():
+    try:
+        product_code_index = 0
+
+        # Product Code 0
+        # Product Name 1
+        # Product Price 2
+
+        products_dict = read_dict("products.csv", product_code_index)
+        count = count_items ("request.csv")
+        subtotal = calculate_subtotal (products_dict,"request.csv")
+        sales_tax = calculate_tax (subtotal)
+        order_total = calculate_total (subtotal,sales_tax)
+        
+    # TODO: #38 10 Prove Assignment Write Code to handle errors
+
+    # Print the store name at the top of the receipt.
+        print ("Inkom Emporium")
+      
+       # Print the list of items purchased to the terminal
+      
+        # Open the CSV file for reading and store a reference
+        # to the opened file in a variable named csv_file.
+        with open("request.csv", "rt") as csv_file:
+            # Use the csv module to create a reader object
+            # that will read from the opened CSV file.
+            reader = csv.reader(csv_file)
+
+            # The first row of the CSV file contains column
+            # headings and not data, so this statement skips
+            # the first row of the CSV file.
+            next(reader)
+
+            # Read the rows in the CSV file one row at a time.
+            # The reader object returns each row as a list.
+            for row_list in reader:
+
+                # If the current row is not blank, add the
+                # data from the current to the dictionary.
+                if len(row_list) != 0:
+
+                    # Pull out Product info from request.csv
+                    # Assign both quantity and product code to variables
+                    product_code = row_list [0]
+                    product_quantity =row_list [1]
+
+                    # Look up product code in products_dict
+                    product_info = products_dict [product_code]
+
+                    # Assign product name and price to variables
+                    product_name = product_info [1]
+                    product_price = product_info [2]
+
+                    # Print product name and price
+                    print(f"{product_name}: {product_quantity} @ {product_price}")
+
+        # Print number of items being purchased to receipt
+        print(f"Number of Items: {count}")
 
 
-def main():
-    # The column headings and indexes.
-    I_NUMBER_INDEX = 0
-    NAME_INDEX = 1
+    # Print Order Subtotal
+        print (f"Subtotal: {subtotal:.2f}")
 
-    # Read the contents of a CSV file named students.csv
-    # into a dictionary named students_dict. Use the I-Number
-    # as the key in the dictionary.
-    students_dict = read_dict("students.csv", I_NUMBER_INDEX)
+    # Print Sales Tax
+        print(f"Sales Tax: {sales_tax:.2f}")
 
-    # Get an I-Number from the user.
-    inumber = input("Please enter an I-Number (xx-xxx-xxxx): ")
+    # Print Order Total
+        print(f"Total: {order_total:.2f}")
 
-    # The I-Numbers are stored in the CSV file as digits only (without
-    # any dashes), so we remove all dashes from the user's input.
-    inumber = inumber.replace("-", "")
+        # Call the now() method to get the current
+        # date and time as a datetime object from
+        # the computer's operating system.
+        current_date_and_time = datetime.now()
 
-    # Determine if the user input is formatted correctly.
-    if not inumber.isdigit():
-        print("Invalid character in I-Number")
-    else:
-        if len(inumber) < 9:
-            print("Invalid I-Number: too few digits")
-        elif len(inumber) > 9:
-            print("Invalid I-Number: too many digits")
-        else:
-            # The user input is a valid I-Number. Find
-            # the I-Number in the list of I-Numbers.
-            if inumber not in students_dict:
-                print("No such student")
-            else:
-                # Retrieve the student name that corresponds
-                # to the I-Number that the user entered.
-                value = students_dict[inumber]
-                name = value[NAME_INDEX]
+        print("Thank you for shopping at the Inkom Emporium.")
+        # Use an f-string to print the current
+        # day of the week and the current time.
+        print(f"{current_date_and_time:%A %I:%M %p}")
 
-                # Print the student name.
-                print(name)
+    except KeyError as Error:
+        # This code will be executed if the user tries to find 
+        # a product that is not in the dictionary or product list
+        print()
+        print("Error: unknown product ID in the request.csv file")
+        print(Error)
+        
+    except FileNotFoundError as Error:
+        # This code will be executed if the user enters
+        # the name of a file that doesn't exist.
+        print()
+        print(f"{Error}: missing file")
+        print("[Errno 2] No such file or directory: ")
+    
+    except PermissionError as perm_err:
+        # This code will be executed if the user enters the name
+        # of a file and doesn't have permission to read that file.
+        print()
+        print(type(perm_err).__name__, perm_err, sep=": ")
+        print("You don't have permission to read filename.")
+        print("Run the program again and enter the name" \
+                " of a file that you are allowed to read.")
+
+
+
+def calculate_total (subtotal,taxes):
+    """
+    Calculate and return the total for the order
+    """
+    return subtotal + taxes
+
+def calculate_tax (subtotal):
+    """
+    Calculate and return a 6% sales tax.
+    """
+    return subtotal * 0.06
+
+def calculate_subtotal (products_dict,filename):
+    """
+    Calculate and return the subtotal for the order in question. 
+    """
+    try:
+        subtotal = 0
+        # Open the CSV file for reading and store a reference
+        # to the opened file in a variable named csv_file.
+        with open(filename, "rt") as csv_file:
+
+            # Use the csv module to create a reader object
+            # that will read from the opened CSV file.
+            reader = csv.reader(csv_file)
+
+            # The first row of the CSV file contains column
+            # headings and not data, so this statement skips
+            # the first row of the CSV file.
+            next(reader)
+
+            # Read the rows in the CSV file one row at a time.
+            # The reader object returns each row as a list.
+            for row_list in reader:
+
+                # If the current row is not blank, add the
+                # data from the current to the dictionary.
+                if len(row_list) != 0:
+
+                    # Pull out Product info from request.csv
+                    # Assign both quantity and product code to variables
+                    product_code = row_list [0]
+                    product_quantity =int(row_list [1])
+
+                    # Look up product code in products_dict
+                    product_info = products_dict [product_code]
+
+                    # Assign product name and price to variables
+                    product_price = float(product_info [2])
+                    
+                    subtotal_product = product_quantity * product_price
+
+                    subtotal += subtotal_product
+        return subtotal
+
+    except FileNotFoundError as not_found_err:
+        # This code will be executed if the user enters
+        # the name of a file that doesn't exist.
+        print()
+        print("Error: missing file")
+        print(f"[Errno 2] No such file or directory: " + filename)
+        
+    
+    except PermissionError as perm_err:
+        # This code will be executed if the user enters the name
+        # of a file and doesn't have permission to read that file.
+        print()
+        print(type(perm_err).__name__, perm_err, sep=": ")
+        print(f"You don't have permission to read {filename}.")
+        print("Run the program again and enter the name" \
+                " of a file that you are allowed to read.")
+
+def count_items (filename):
+    """
+    Count and return the total number of items in the order
+    """
+    try:
+        # Open the CSV file for reading and store a reference
+        # to the opened file in a variable named csv_file.
+        with open(filename, "rt") as csv_file:
+            count = 0
+            # Use the csv module to create a reader object
+            # that will read from the opened CSV file.
+            reader = csv.reader(csv_file)
+
+            # The first row of the CSV file contains column
+            # headings and not data, so this statement skips
+            # the first row of the CSV file.
+            next(reader)
+
+            # Read the rows in the CSV file one row at a time.
+            # The reader object returns each row as a list.
+            for row_list in reader:
+
+                # If the current row is not blank, add the
+                # data from the current to the dictionary.
+                if len(row_list) != 0:
+
+                    # Pull out Product info from request.csv
+                    # Assign both quantity and product code to variables
+                    quantity = int(row_list[1])
+                    count +=quantity
+            return count
+
+
+
 
 
 def read_dict(filename, key_column_index):
@@ -62,42 +226,45 @@ def read_dict(filename, key_column_index):
     Return: a compound dictionary that contains
         the contents of the CSV file.
     """
-    # Create an empty dictionary that will
-    # store the data from the CSV file.
-    dictionary = {}
+    try:
+        # Create an empty dictionary that will
+        # store the data from the CSV file.
+        products_dict = {}
 
-    # Open the CSV file for reading and store a reference
-    # to the opened file in a variable named csv_file.
-    with open(filename, "rt") as csv_file:
+        # Open the CSV file for reading and store a reference
+        # to the opened file in a variable named csv_file.
+        with open(filename, "rt") as csv_file:
 
-        # Use the csv module to create a reader object
-        # that will read from the opened CSV file.
-        reader = csv.reader(csv_file)
+            # Use the csv module to create a reader object
+            # that will read from the opened CSV file.
+            reader = csv.reader(csv_file)
 
-        # The first row of the CSV file contains column
-        # headings and not data, so this statement skips
-        # the first row of the CSV file.
-        next(reader)
+            # The first row of the CSV file contains column
+            # headings and not data, so this statement skips
+            # the first row of the CSV file.
+            next(reader)
 
-        # Read the rows in the CSV file one row at a time.
-        # The reader object returns each row as a list.
-        for row_list in reader:
+            # Read the rows in the CSV file one row at a time.
+            # The reader object returns each row as a list.
+            for row_list in reader:
 
-            # From the current row, retrieve the data
-            # from the column that contains the key.
-            key = row_list[key_column_index]
+                # If the current row is not blank, add the
+                # data from the current to the dictionary.
+                if len(row_list) != 0:
 
-            # Store the data from the current row
-            # into the dictionary.
-            dictionary[key] = row_list
+                    # From the current row, retrieve the data
+                    # from the column that contains the key.
+                    key = row_list[key_column_index]
 
-    # Return the dictionary.
-    return dictionary
+                    # Store the data from the current
+                    # row into the dictionary.
+                    products_dict [key] = row_list
+
+        # Return dictionary
+        return products_dict
 
 
-# If this file was executed like this:
-# > python teach_solution.py
-# then call the main function. However, if this file
-# was simply imported, then skip the call to main.
+
+# Call Main function to start
 if __name__ == "__main__":
     main()
