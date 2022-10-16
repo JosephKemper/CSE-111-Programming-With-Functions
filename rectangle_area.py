@@ -1,6 +1,4 @@
-# Copyright 2020, Brigham Young University-Idaho. All rights reserved.
-
-import math
+# 12 Team Activity: Using Objects
 import tkinter as tk
 import number_entry as nent
 
@@ -12,7 +10,7 @@ def main():
     # Create the main window. In tkinter,
     # a window is also called a frame.
     frm_main = tk.Frame(root)
-    frm_main.master.title("Tire Volume")
+    frm_main.master.title("Rectangle Area")
     frm_main.pack(padx=4, pady=3, fill=tk.BOTH, expand=1)
 
     # Call the populate_main_window function, which will add
@@ -48,15 +46,14 @@ def populate_main_window(frm_main):
     Return: nothing
     """
     # Create labels for the text fields and the results.
-    lbl_width = tk.Label(frm_main, text="Width (mm):")
-    lbl_ratio = tk.Label(frm_main, text="Aspect Ratio:")
-    lbl_diam = tk.Label(frm_main, text="Diameter (in):")
-    lbl_vol = tk.Label(frm_main, text="Volume (liters):")
+    lbl_width = tk.Label(frm_main, text="Width:")
+    lbl_length = tk.Label(frm_main, text="Length:")
+    lbl_area = tk.Label(frm_main, text="Area of Rectangle:")
 
     # Create three text fields.
-    ent_width = nent.IntEntry(frm_main, 80, 300, width=5)
-    ent_ratio = nent.FloatEntry(frm_main, 30, 90, width=5)
-    ent_diam = nent.FloatEntry(frm_main, 10, 30, width=5)
+    ent_width = nent.IntEntry(frm_main,1,1000, width=5)
+    ent_length = nent.FloatEntry(frm_main, 1,1000, width=5)
+    
 
     # Create a label to display the result.
     lbl_result = tk.Label(frm_main, width=8, anchor="w")
@@ -67,11 +64,9 @@ def populate_main_window(frm_main):
     # Layout all the labels, text fields, and buttons in a grid.
     lbl_width.grid( row=0, column=0, padx=3, pady=2, sticky="e")
     ent_width.grid( row=0, column=1, padx=3, pady=2, sticky="w")
-    lbl_ratio.grid( row=1, column=0, padx=3, pady=2, sticky="e")
-    ent_ratio.grid( row=1, column=1, padx=3, pady=2, sticky="w")
-    lbl_diam.grid(  row=2, column=0, padx=3, pady=2, sticky="e")
-    ent_diam.grid(  row=2, column=1, padx=3, pady=2, sticky="w")
-    lbl_vol.grid(   row=3, column=0, padx=3, pady=2, sticky="e")
+    lbl_length.grid( row=1, column=0, padx=3, pady=2, sticky="e")
+    ent_length.grid( row=1, column=1, padx=3, pady=2, sticky="w")
+    lbl_area.grid(   row=3, column=0, padx=3, pady=2, sticky="e")
     lbl_result.grid(row=3, column=1, padx=3, pady=2, sticky="w")
     btn_clear.grid( row=3, column=2, padx=3, pady=2)
 
@@ -81,16 +76,15 @@ def populate_main_window(frm_main):
         """Compute the approximate volume of a tire in liters."""
         try:
             # Get the user input.
-            w = ent_width.get()
-            a = ent_ratio.get()
-            d = ent_diam.get()
+            width = ent_width.get()
+            length = ent_length.get()
 
-            # Compute the tire volume in liters.
-            v = (math.pi * w * w * a * (w * a + 2540 * d)) / 10_000_000_000
+            # Compute the area of the rectangle.
+            area = length * width
 
             # Display the volume rounded to one place after
             # the decimal for the for the user to see.
-            lbl_result.config(text=f"{v:.1f}")
+            lbl_result.config(text=f"{area:.1f}")
 
         except ValueError:
             # When the user deletes all the digits in one
@@ -103,8 +97,7 @@ def populate_main_window(frm_main):
     def clear():
         """Clear all the inputs and outputs."""
         ent_width.delete(0, tk.END)
-        ent_ratio.delete(0, tk.END)
-        ent_diam.delete(0, tk.END)
+        ent_length.delete(0, tk.END)
         lbl_result.config(text="")
         ent_width.focus()
 
@@ -113,8 +106,8 @@ def populate_main_window(frm_main):
     # so that the calculate function will be called when
     # the user changes the text in the text fields.
     ent_width.bind("<KeyRelease>", calculate)
-    ent_ratio.bind("<KeyRelease>", calculate)
-    ent_diam.bind("<KeyRelease>", calculate)
+    ent_length.bind("<KeyRelease>", calculate)
+
 
     # Bind the clear function to the clear button so
     # that the clear function will be called when the
