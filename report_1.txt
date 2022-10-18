@@ -19,21 +19,29 @@ any of the following:
             Time Spent
    Date       (hours)   Description of Work
 ----------  ----------  -------------------------
-2021-12-02      1.5     Read tutorials about the Python requests module
+8 Oct 2022      2      Read and watched tutorials about the tkinter module
+11 Oct 2022     2      Read and watched tutorials about the pysimpleGUI module
+11 Oct 2022     0.5    Created initial implementation of pysimpleGUI in program
+17 Oct 2022     2      Started building out character creation aspect of program.
 
 
 2. Write the names of the functions in your program.
-
+main
+character_creation
 
 3. Answer the following questions about the functions in your program.
     a. Does each function perform a single task?
+    yes
 
     b. Does the name of each function describe or convey the task?
+    yes
 
     c. Do most of your program functions have parameters and return a result?
+    not yet
 
     If you answered "no" to any of the above three questions, what are
     you planning to change in your program?
+    I am going to be adding more functions that will fulfill all of these criteria. 
 
 
 4. Write the names of the test functions that you wrote to test your
