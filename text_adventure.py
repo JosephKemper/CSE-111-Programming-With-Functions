@@ -1,18 +1,12 @@
 # The Ultimate Choose Your Own Adventure Game
 import PySimpleGUI as sg
 
-
-
 def main ():
     sg.theme('DarkAmber')   # Add a touch of color
     # All the stuff inside your window.
     character_info = character_creation()
     
-    display_text = """Just as you get to the tree line you hear someone yell behind you 
-he's running into the forest. The yelling and loud footsteps behind you, 
-tells you that the whole group is chasing after you and drives you to run faster. 
-You duck behind a bush, then notice a cave in the side of the nearby mountain 
-and quickly run for it."""
+    display_text = character_info
     option_1 = "Run"
     option_2 = "Fight"
     layout = [  [sg.Text(display_text)],
@@ -36,32 +30,32 @@ def character_creation ():
     # All the stuff inside your window.
     layout = [  [sg.Text('Welcome to our story. This is where you create your character.')],
                 [sg.Text("Please enter your character name, then select your character's gender.")], 
-                [sg.InputText()],
-                [sg.Button('Male'), sg.Button('Female')],
+                [sg.Text('Name'), sg.InputText()],
+                [sg.Radio('Male', "RADIO1"),
+                sg.Radio('Female', "RADIO1")],
                 [sg.Button('Exit')] ]
 
 # TODO: #48 Figure out how to assign text the user enters to a variable. 
 # TODO: #49 Figure out how to exit a function to go to the next window in PYsimpleGUI.
 # TODO: #50 Figure out how to make a user enter both a name and select a gender to continue
-
-
+# Possibly enable a continue button to show up after they have selected either male or female. 
+# Change the gender select buttons to a radio button. 
+    
     window = sg.Window('The Ultimate Choose Your Own Adventure Story', layout)
-    while True:
-        event, values = window.read()
-        if event == "Male":
-            player_gender = "Male"
-        elif event == "Female":
-            player_gender = "Female"
-
     # Event Loop to process "events" and get the "values" of the inputs
     while True:
         event, values = window.read()
+        character_name = values [0]
         if event == sg.WIN_CLOSED or event == 'Exit': # if user closes window or clicks cancel
             break
-        print('You entered ', values[0])
-    
+        elif event == "Male":
+            character_gender = "Male"
+            return character_name, character_gender
+        elif event == "Female":
+            character_gender = "Female"
+            return character_name, character_gender
     window.close()
-    return player_gender
+
 
 
 # Create buttons for exiting and user choices
