@@ -24,6 +24,7 @@ any of the following:
 11 Oct 2022     0.5    Created initial implementation of pysimpleGUI in program
 17 Oct 2022     2      Started building out character creation aspect of program.
 18 Oct 2022     1      Worked on getting input from user to track to variables
+19 Oct 2022     2      Worked more on getting input from user and learning how to implement pysimpleGUI
 
 2. Write the names of the functions in your program.
 main

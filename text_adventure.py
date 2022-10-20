@@ -30,10 +30,10 @@ def character_creation ():
     # All the stuff inside your window.
     layout = [  [sg.Text('Welcome to our story. This is where you create your character.')],
                 [sg.Text("Please enter your character name, then select your character's gender.")], 
-                [sg.Text('Name'), sg.InputText()],
-                [sg.Radio('Male', "RADIO1"),
-                sg.Radio('Female', "RADIO1")],
-                [sg.Button('Exit')] ]
+                [sg.Text('Name'), sg.InputText(key="-NAME-")],
+                [sg.Radio('Male', "RADIO1", key= "-GENDER-"),
+                sg.Radio('Female', "RADIO1", key= "-GENDER-")],
+                [sg.Submit() ,sg.Cancel()] ]
 
 # TODO: #48 Figure out how to assign text the user enters to a variable. 
 # TODO: #49 Figure out how to exit a function to go to the next window in PYsimpleGUI.
@@ -45,15 +45,19 @@ def character_creation ():
     # Event Loop to process "events" and get the "values" of the inputs
     while True:
         event, values = window.read()
-        character_name = values [0]
-        if event == sg.WIN_CLOSED or event == 'Exit': # if user closes window or clicks cancel
-            break
-        elif event == "Male":
+        character_name = values ["-NAME-"]
+        if values ["-GENDER-"] == "Male" and event == "Confirm":
             character_gender = "Male"
-            return character_name, character_gender
-        elif event == "Female":
+            sg.popup(f"You entered {character_name} and {character_gender}")
+            #return character_name, character_gender
+            break 
+        elif values ["-GENDER-"] == "Female" and event == "Confirm":
             character_gender = "Female"
-            return character_name, character_gender
+            sg.popup(f"You entered {character_name} and {character_gender}")
+            #return character_name, character_gender
+            break
+        elif event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+            break
     window.close()
 
 
