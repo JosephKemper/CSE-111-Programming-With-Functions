@@ -13,6 +13,7 @@ def main ():
         [sg.Button(option_1),sg.Button(option_2)], 
         [sg.Text('Or try your luck with your own option'), sg.InputText()],
         [sg.Button('Cancel')] ]
+# TODO: #59 Get input three set up to report to a variable
 
     # Create the Window
     window = sg.Window('The Ultimate Choose Your Own Adventure Story', layout)
@@ -35,9 +36,10 @@ def character_creation ():
                 sg.Radio('Female', "RADIO", key= "-FEMALE-")],
                 [sg.Submit() ,sg.Cancel()] ]
 
-# TODO: #48 Figure out how to assign text the user enters to a variable. 
-# TODO: #49 Figure out how to exit a function to go to the next window in PYsimpleGUI.
-# TODO: #50 Figure out how to make a user enter both a name and select a gender to continue
+# TODO: #56 Get the Character Creation window to close when I am done with it. 
+# TODO: #57 Build first scene and figure out how I will build and print more scenes
+# TODO: #58 Figure out how I am going to organize my app. 
+
 # Possibly enable a continue button to show up after they have selected either male or female. 
 # Change the gender select buttons to a radio button. 
     

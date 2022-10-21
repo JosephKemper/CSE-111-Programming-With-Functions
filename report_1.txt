@@ -25,6 +25,8 @@ any of the following:
 17 Oct 2022     2      Started building out character creation aspect of program.
 18 Oct 2022     1      Worked on getting input from user to track to variables
 19 Oct 2022     2      Worked more on getting input from user and learning how to implement pysimpleGUI
+20 Oct 2022     1.5    Finally got the code working to collect data from the radio buttons
+
 
 2. Write the names of the functions in your program.
 main
