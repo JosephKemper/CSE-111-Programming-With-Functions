@@ -4,43 +4,37 @@
 # Setting up variables as lists to allow for dynamic scene mapping
 current_options = []
 current_scene = []
-display_text_list = []
 next_scenes = []
 
 def main ():
+
     # All the stuff inside your window.
     char_info = character_creation()
-    print("char_info = ",type(char_info))
     prior_death = False
     discovered_powers = False
     char_name = char_info[0]
-    print("char_name = ",type(char_name))
     char_gender = char_info[1]
-    print("char_gender = ",type(char_gender))
 
 
     # Maps the player choices to the variable current_scene
     current_scene = cabin_scene(char_name, char_gender, prior_death, discovered_powers)
-    # Returns display_text, player_choices, next_scenes
-    print("current_scene = ",type(current_scene))
+    # Returns (story_text, player_choices, next_scenes)
 
     # Pulls display text from current scene to display to user
-    display_text_list = current_scene [0]
-    print("display_text_list = ",type(display_text_list))
-    display_text = display_text_list [0]
-    print("display_text = ",type(display_text))
+    display_text = current_scene [0]
+    print(display_text)
+    next_scene = current_scene [2]
+    print(next_scene)
     
     # Pulls returned options from current scene to be mapped to display
     current_options = current_scene [1]
-    print("current_options = ",type(current_options))
     option_1 = current_options ["option_1"]
-    print("option_1 = ",type(option_1))
     option_2 = current_options ["option_2"]
-    print("option_2 = ",type(option_2))
+
+
 
     
     
-    # Create the Window
 
 def personalized_dialog (gender, key):
     """
@@ -50,7 +44,7 @@ def personalized_dialog (gender, key):
     is to allow those references to be dynamic to the character
     which the player created.
     """
-    if gender == "male":
+    if gender == "Male":
         male = {
         "he_she" :"he", 
         "him_her" : "him",
@@ -70,7 +64,7 @@ def personalized_dialog (gender, key):
         "enemy_leader" : "Lady"
         }
         return male.get(key)
-    elif gender == "female":
+    elif gender == "Female":
         female = {
         "he_she" : "she",
         "him_her" : "her",
@@ -92,7 +86,11 @@ def personalized_dialog (gender, key):
         return female.get(key)
 
 def character_creation ():
-    return "test", "Male"
+    char_name = "John"
+    char_gender = "Male"
+    return char_name, char_gender
+        
+
 
 
 def cabin_scene(char_name, gender, prior_death,discovered_powers):
@@ -102,8 +100,7 @@ def cabin_scene(char_name, gender, prior_death,discovered_powers):
     """
 
     if prior_death == False:
-        cabin_text = f"""
-        "Today is going to be great!" You think to yourself.
+        story_text = f""""Today is going to be great!" You think to yourself.
 I got the day off.
 My friends and I have an amazing weekend planned.
 I might even see that really cute {personalized_dialog(gender,"love_interest")} again.
@@ -116,27 +113,49 @@ The High {personalized_dialog(gender,"enemy_leader")} wants {personalized_dialog
 As you look out the window, you see a dozen strangely dressed 
 {personalized_dialog(gender,"men_women")} carrying large swords angrily moving towards your home.
 You're at your dad's old cabin, miles out of town. 
-Even if they went 80, it would take the police 30 minutes to get out here, 
-and you're not sure if you can get signal anyway.
-Police can't help me." You think to yourself. "I need to think of other options."
+Even if they went 80, it would take the police an hour to get out here, 
+and you're not sure if you can get cell signal anyway.
+"Police can't help me." You think to yourself. "I need to think of other options."
 I could try to HIDE and hope they don't find me, 
 or I could try to ESCAPE out the window and make a break for it. 
 The forest is not far, I could run out there forever."""
         player_choices = {
-            "option_1":"hide",
-            "option_2":"escape"}
+            "option_1":"HIDE",
+            "option_2":"ESCAPE"}
 
         next_scenes = {
             "option_1":closet_scene,
             "option_2":forest_scene}
 
-        return cabin_text, player_choices, next_scenes
+        return story_text, player_choices, next_scenes
 
-def closet_scene():
-    pass
+# TODO: #75 BUG Tried to create filler scenes but it crashed when testing. 
+def closet_scene(char_name, gender, prior_death,discovered_powers):
+    story_text = "To Be Continued"
 
-def forest_scene():
-    pass
+    player_choices = {
+            "option_1":"not enabled",
+            "option_2":"not enabled"}
+
+    next_scenes = {
+        "option_1":"filler_0",
+        "option_2":"filler_1"}
+
+    return story_text, player_choices, next_scenes
+
+
+def forest_scene(char_name, gender, prior_death,discovered_powers):
+    story_text = "To Be Continued"
+
+    player_choices = {
+            "option_1":"not enabled",
+            "option_2":"not enabled"}
+
+    next_scenes = {
+        "option_1":"filler_0",
+        "option_2":"filler_1"}
+
+    return story_text, player_choices, next_scenes
 
 
 if __name__ == "__main__":
