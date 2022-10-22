@@ -68,8 +68,8 @@ def character_creation ():
             
                 # Next line was used for testing purposes
                 #sg.popup(f"You entered {character_name} and {character_gender}")
-            return character_name, character_gender 
-        window.close()
+            return character_name, character_gender, window.close()
+        
     window.close()
 
 
