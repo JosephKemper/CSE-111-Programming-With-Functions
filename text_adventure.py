@@ -9,25 +9,28 @@ def main ():
     display_text = character_info
     option_1 = "Run"
     option_2 = "Fight"
+
     layout = [  [sg.Text(display_text)],
         [sg.Button(option_1),sg.Button(option_2)], 
-        [sg.Text('Or try your luck with your own option'), sg.InputText()],
-        [sg.Button('Cancel')] ]
-# TODO: #59 Get input three set up to report to a variable
+        [sg.Text("Or make a 3rd option"), 
+        sg.InputText(key="text_input"),sg.Button("Option 3")],
+        [sg.Button("Cancel")] ]
 
+    
+    
     # Create the Window
-    window = sg.Window('The Ultimate Choose Your Own Adventure Story', layout)
+    window = sg.Window("The Ultimate Choose Your Own Adventure Story", layout)
     # Event Loop to process "events" and get the "values" of the inputs
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+        if event == sg.WIN_CLOSED or event == "Cancel": # if user closes window or clicks cancel
             break
-        print('You entered ', values[0])
+        
 
     window.close()
 
 def character_creation ():
-    sg.theme('default1')   # Add a touch of color
+    sg.theme("default1")   # Add a touch of color
     # All the stuff inside your window.
     layout = [  [sg.Text('Welcome to our story. This is where you create your character.')],
                 [sg.Text("Please enter your character name, then select your character's gender.")], 
@@ -35,6 +38,8 @@ def character_creation ():
                 [sg.Radio('Male', "RADIO", key= "-MALE-", default= True),
                 sg.Radio('Female', "RADIO", key= "-FEMALE-")],
                 [sg.Submit() ,sg.Cancel()] ]
+
+# TODO: #61 Build functionality for Option 3 to be used. 
 
 # TODO: #56 Get the Character Creation window to close when I am done with it. 
 # TODO: #57 Build first scene and figure out how I will build and print more scenes
@@ -60,12 +65,11 @@ def character_creation ():
                     character_gender = "Male"
                 elif values ["-FEMALE-"]:
                     character_gender = "Female"
-                
+            
                 # Next line was used for testing purposes
                 #sg.popup(f"You entered {character_name} and {character_gender}")
-                return character_name, character_gender
-                break 
-        
+            return character_name, character_gender 
+        window.close()
     window.close()
 
 
