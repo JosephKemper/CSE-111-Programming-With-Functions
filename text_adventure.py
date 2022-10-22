@@ -1,11 +1,11 @@
 # The Ultimate Choose Your Own Adventure Game
 import PySimpleGUI as sg
-import time
+
 
 # Setting up variables as lists to allow for dynamic scene mapping
 current_options = []
 current_scene = []
-display_text = []
+display_text_list = []
 next_scenes = []
 
 def main ():
@@ -18,21 +18,20 @@ def main ():
     char_gender = char_info[1]
 
 
-    # TODO: #70 Map scene output to player choices
-
     # Maps the player choices to the variable current_scene
     current_scene = cabin_scene(char_name, char_gender, prior_death, discovered_powers)
     # Returns display_text, player_choices, next_scenes
 
     # Pulls display text from current scene to display to user
     display_text = current_scene [0]
+    display_text = str(display_text)
     
     # Pulls returned options from current scene to be mapped to display
     current_options = current_scene [1]
-    option_1 = current_options [0]
-    option_2 = current_options [1]
+    option_1 = current_options ["option_1"]
+    option_2 = current_options ["option_2"]
 
-    layout = [  [sg.Text(display_text)],
+    layout = [  [sg.Text(display_text) ],
         [sg.Button(option_1),sg.Button(option_2)], 
         [sg.Button("Cancel")] ]
 
@@ -59,7 +58,8 @@ def personalized_dialog (gender, key):
     is to allow those references to be dynamic to the character
     which the player created.
     """
-    male = {
+    if gender == "male":
+        male = {
         "he_she" :"he", 
         "him_her" : "him",
         "his_her" : "his",
@@ -77,8 +77,9 @@ def personalized_dialog (gender, key):
         "opposite_him_her" : "her",
         "enemy_leader" : "Lady"
         }
-
-    female = {
+        return male.get(key)
+    elif gender == "female":
+        female = {
         "he_she" : "she",
         "him_her" : "her",
         "his_her" : "her",
@@ -96,9 +97,6 @@ def personalized_dialog (gender, key):
         "opposite_him_her" : "him",
         "enemy_leader" : "Lord"
         }
-    if gender == "male":
-        return male.get(key)
-    elif gender == "female":
         return female.get(key)
 
 def character_creation ():
@@ -136,16 +134,14 @@ def character_creation ():
     window.close()
 
 
-# TODO: #66 Build test for Cabin Scene
 def cabin_scene(char_name, gender, prior_death,discovered_powers):
     """
     This function is used to stage user interaction 
     for activities that happen in the cabin scene of the story.
     """
-# TODO: #69 Bug with personalized dialog generating
+# TODO: #73 BUG Personalized text coming through as None when being printed
     if prior_death == False:
-        display_text == f"""
-        "Today is going to be great!" You think to yourself.
+        cabin_text = f""""Today is going to be great!" You think to yourself.
 I got the day off.
 My friends and I have an amazing weekend planned.
 I might even see that really cute {personalized_dialog(gender,"love_interest")} again.
@@ -172,7 +168,7 @@ The forest is not far, I could run out there forever."""
             "option_1":closet_scene,
             "option_2":forest_scene}
 
-        return display_text, player_choices, next_scenes
+        return cabin_text, player_choices, next_scenes
 
 def closet_scene():
     pass
