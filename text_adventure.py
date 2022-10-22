@@ -1,11 +1,14 @@
 # The Ultimate Choose Your Own Adventure Game
 import PySimpleGUI as sg
+import time
 
 def main ():
     sg.theme('DarkAmber')   # Add a touch of color
     # All the stuff inside your window.
     character_info = character_creation()
-    
+    prior_death = False
+    discovered_powers = False
+
     display_text = character_info
     option_1 = "Run"
     option_2 = "Fight"
@@ -86,10 +89,39 @@ def cust_dia (gender, key):
         "opposite_him_her" : "him",
         "enemy_leader" : "Lord"
         }
-    return gender.get(key)
+    if gender == "male":
+        return male.get(key)
+    elif gender == "female":
+        return female.get(key)
+
+def cabin_scene(char_name, gender, prior_death,discovered_powers):
+    
+
+    if prior_death == False:
+        display_text == f"""
+        "Today is going to be great!" You think to yourself.
+I got the day off.
+My friends and I have an amazing weekend planned.
+I might even see that really cute {cust_dia(gender,love_interest)} again.
+Who knows! Maybe I'll even ask {cust_dia(gender,opposite_him_her)} on a date.
+Nothing could possibly ruin this day!
+In the middle of your preparations to get ready for your weekend, 
+you hear an unfamiliar voice shouting just outside your house.
+{char_name.capitalize ()} should be inside, get {cust_dia(gender,him_her)} now. 
+The High {cust_dia(gender,enemy_leader)} wants {cust_dia(gender,him_her)} alive and in one piece."
+As you look out the window, you see a dozen strangely dressed 
+{cust_dia(gender,men_women)} carrying large swords angrily moving towards your home.
+You're at your dad's old cabin, miles out of town. 
+Even if they went 80, it would take the police 30 minutes to get out here, 
+and you're not sure if you can get signal anyway.
+Police can't help me." You think to yourself. "I need to think of other options."
+I could try to HIDE and hope they don't find me, 
+or I could try to ESCAPE out the window and make a break for it. 
+The forest is not far, I could hide in there forever."""
+        
 
 
-# TODO: #57 Build first scene and figure out how I will build and print more scenes
+
 # TODO: #58 Figure out how I am going to organize my app. 
 
 # Possibly enable a continue button to show up after they have selected either male or female. 

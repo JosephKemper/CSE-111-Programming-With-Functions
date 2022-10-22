@@ -1,39 +1,25 @@
-male = {
-    "he_she" :"he", 
-    "him_her" : "him",
-    "his_her" : "his",
-    "boy_girl" : "boy",
-    "brother_sister" : "brother",
-    "son_daughter" : "son",
-    "male_female" : "male",
-    "men_women" : "men",
-    "man_woman" : "man",
-    "love_interest" : "girl",
-    "opposite_male_female" : "female",
-    "opposite_men_women" : "women",
-    "opposite_he_she" : "she",
-    "opposite_his_her" : "her",
-    "opposite_him_her" : "her",
-    "enemy_leader" : "Lady"
-    }
+from text_adventure import cust_dia
+def main ():
+    gender = "male"
+    keys = ("he_she",
+            "him_her",
+            "his_her",
+            "boy_girl",
+            "brother_sister",
+            "son_daughter",
+            "male_female",
+            "men_women",
+            "man_woman",
+            "love_interest",
+            "opposite_male_female",
+            "opposite_men_women",
+            "opposite_he_she",
+            "opposite_his_her",
+            "opposite_him_her",
+            "enemy_leader"
+            )
 
-female = {
-    "he_she" : "she",
-    "him_her" : "her",
-    "his_her" : "her",
-    "boy_girl" : "girl",
-    "brother_sister" : "sister",
-    "son_daughter" : "daughter",
-    "male_female" : "female",
-    "men_women" : "women",
-    "man_woman" : "woman",
-    "love_interest" : "guy",
-    "opposite_male_female" : "male",
-    "opposite_men_women" : "men",
-    "opposite_he_she" : "he",
-    "opposite_his_her" : "his",
-    "opposite_him_her" : "him",
-    "enemy_leader" : "Lord"
-    }
+    for key in keys:
+        print(cust_dia(gender, key))
 
-print(female.get("he_she"))
+main()
