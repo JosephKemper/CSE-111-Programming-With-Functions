@@ -1,27 +1,39 @@
-import PySimpleGUI as sg
-import math
+male = {
+    "he_she" :"he", 
+    "him_her" : "him",
+    "his_her" : "his",
+    "boy_girl" : "boy",
+    "brother_sister" : "brother",
+    "son_daughter" : "son",
+    "male_female" : "male",
+    "men_women" : "men",
+    "man_woman" : "man",
+    "love_interest" : "girl",
+    "opposite_male_female" : "female",
+    "opposite_men_women" : "women",
+    "opposite_he_she" : "she",
+    "opposite_his_her" : "her",
+    "opposite_him_her" : "her",
+    "enemy_leader" : "Lady"
+    }
 
-sg.theme('DarkAmber')   # Add a touch of color
-# All the stuff inside your window.
-layout = [  [sg.Text('Calculate Volume of sphere')],
-            [sg.InputText(key='-NAME-')],
-            [sg.InputText(key='Radius')],
-            [sg.Submit(), sg.Cancel()] ]
+female = {
+    "he_she" : "she",
+    "him_her" : "her",
+    "his_her" : "her",
+    "boy_girl" : "girl",
+    "brother_sister" : "sister",
+    "son_daughter" : "daughter",
+    "male_female" : "female",
+    "men_women" : "women",
+    "man_woman" : "woman",
+    "love_interest" : "guy",
+    "opposite_male_female" : "male",
+    "opposite_men_women" : "men",
+    "opposite_he_she" : "he",
+    "opposite_his_her" : "his",
+    "opposite_him_her" : "him",
+    "enemy_leader" : "Lord"
+    }
 
-window = sg.Window ('Josephs First window', layout)
-
-event, values = window.read()
-
-window.close()
-
-def cal_sph_vol (radius):
-    volume = (4/3)*math.pi*(radius**3)
-    return volume
-
-float_radius = float(values['Radius'])
-sphere_volume = cal_sph_vol (float_radius)
-
-sg.popup("The volume is", sphere_volume)
-
-sg.popup(values['-NAME-'], 'entered', values["Radius"])
-
+print(female.get("he_she"))

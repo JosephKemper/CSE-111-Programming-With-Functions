@@ -1,4 +1,15 @@
-elif event == values [2] and event == "Confirm":
-        #     character_gender = "Female"
-        #     sg.popup(f"You entered {character_name} and {character_gender}")
-        #     break
+        # "him_her",
+        # "his_her",
+        # "boy_girl",
+        # "brother_sister",
+        # "son_daughter",
+        # "male_female",
+        # "men_women",
+        # "man_woman",
+        # "love_interest",
+        # "opposite_male_female",
+        # "opposite_men_women",
+        # "opposite_he_she",
+        # "opposite_his_her",
+        # "opposite_him_her",
+        # "enemy_leader"
