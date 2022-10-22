@@ -29,13 +29,16 @@ any of the following:
 21 Oct 2022     0.5     Standardized code and planned work
 22 Oct 2022     2       Wrote the functions cust_dia and test_cust_dia
 22 Oct 2022     1       Wrote the first part of the function cabin_scene
+22 Oct 2022     1       Finished cabin_scene and found bug. Spent rest of hour fixing
+22 Oct 2022     1       Possible fix on cabin_scene bug. New bug created on while loop. Trying to resolve now
 
 
 2. Write the names of the functions in your program.
 main
 character_creation
-cust_dia
-test_cust_dia
+personalized_dialog
+cabin_scene
+
 
 3. Answer the following questions about the functions in your program.
     a. Does each function perform a single task?
@@ -54,4 +57,5 @@ test_cust_dia
 
 4. Write the names of the test functions that you wrote to test your
 program functions.
-
+    test_personalized_dialog
+    test_cabin_scene
