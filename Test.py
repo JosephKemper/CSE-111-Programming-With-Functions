@@ -1,5 +1,3 @@
-# The Ultimate Choose Your Own Adventure Game
-
 
 # Setting up variables as lists to allow for dynamic scene mapping
 current_options = []
@@ -20,11 +18,20 @@ def main ():
     current_scene = cabin_scene(char_name, char_gender, prior_death, discovered_powers)
     # Returns (story_text, player_choices, next_scenes)
 
+    next_scenes = current_scene [2]
+    print(next_scenes)
+    print("next_scenes", type(next_scenes))
+    option_1_scene = next_scenes ["option_1"]
+    test = option_1_scene
+    option_2_scene = next_scenes ["option_2"]
+    test_2 = option_2_scene (char_name, char_gender, prior_death,discovered_powers)
+    # story_text, player_choices, next_scenes
+    print(test_2[0])
+
     # Pulls display text from current scene to display to user
     display_text = current_scene [0]
-    print(display_text)
-    next_scene = current_scene [2]
-    print(next_scene)
+    display_text = str(display_text)
+    
     
     # Pulls returned options from current scene to be mapped to display
     current_options = current_scene [1]
@@ -32,9 +39,9 @@ def main ():
     option_2 = current_options ["option_2"]
 
 
+    
+    
 
-    
-    
 
 def personalized_dialog (gender, key):
     """
@@ -64,6 +71,7 @@ def personalized_dialog (gender, key):
         "enemy_leader" : "Lady"
         }
         return male.get(key)
+        
     elif gender == "Female":
         female = {
         "he_she" : "she",
@@ -89,9 +97,7 @@ def character_creation ():
     char_name = "John"
     char_gender = "Male"
     return char_name, char_gender
-        
-
-
+    
 
 def cabin_scene(char_name, gender, prior_death,discovered_powers):
     """
