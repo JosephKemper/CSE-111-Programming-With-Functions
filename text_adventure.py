@@ -20,6 +20,12 @@ def main ():
     # Maps the player choices to the variable current_scene
     current_scene = cabin_scene(char_name, char_gender, prior_death, discovered_powers)
     # Returns (story_text, player_choices, next_scenes)
+    
+    # Format of dictionary values
+    # {"option_1":first_scene,"option_2":second_scene}
+    next_scenes = current_scene [2]
+    first_scene = next_scenes ["option_1"]
+    second_scene = next_scenes ["option_2"]
 
     # Pulls display text from current scene to display to user
     display_text = current_scene [0]
@@ -35,7 +41,7 @@ def main ():
         [sg.Button("Cancel")] ]
 
     
-    
+    # TODO: #77 BUG Options 1 and 2 not working. 
     # Create the Window
     window = sg.Window("The Ultimate Choose Your Own Adventure Story", layout)
     # Event Loop to process "events" and get the "values" of the inputs
@@ -44,9 +50,9 @@ def main ():
         if event == sg.WIN_CLOSED or event == "Cancel": # if user closes window or clicks cancel
             break
         elif event == option_1:
-            current_scene = next_scenes [0]
+            current_scene = first_scene
         elif event == option_2:
-            current_scene = next_scenes [1]
+            current_scene = second_scene
     window.close()
 
 def personalized_dialog (gender, key):
