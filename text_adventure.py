@@ -30,6 +30,7 @@ def main ():
     # Pulls display text from current scene to display to user
     display_text = current_scene [0]
     display_text = str(display_text)
+    print(display_text)
     
     # Pulls returned options from current scene to be mapped to display
     current_options = current_scene [1]
@@ -55,7 +56,7 @@ def main ():
             current_scene = second_scene
     window.close()
 
-def personalized_dialog (gender, key):
+def personalized_dialog (char_gender, key):
     """
     The dialog in this adventure commonly uses 
     gender references that are meant to be tailored 
@@ -63,7 +64,7 @@ def personalized_dialog (gender, key):
     is to allow those references to be dynamic to the character
     which the player created.
     """
-    if gender == "Male":
+    if char_gender == "Male":
         male = {
         "he_she" :"he", 
         "him_her" : "him",
@@ -83,7 +84,7 @@ def personalized_dialog (gender, key):
         "enemy_leader" : "Lady"
         }
         return male.get(key)
-    elif gender == "Female":
+    elif char_gender == "Female":
         female = {
         "he_she" : "she",
         "him_her" : "her",
@@ -139,7 +140,7 @@ def character_creation ():
     window.close()
 
 
-def cabin_scene(char_name, gender, prior_death,discovered_powers):
+def cabin_scene(char_name, char_gender, prior_death,discovered_powers):
     """
     This function is used to stage user interaction 
     for activities that happen in the cabin scene of the story.
@@ -149,15 +150,15 @@ def cabin_scene(char_name, gender, prior_death,discovered_powers):
         story_text = f""""Today is going to be great!" You think to yourself.
 I got the day off.
 My friends and I have an amazing weekend planned.
-I might even see that really cute {personalized_dialog(gender,"love_interest")} again.
-Who knows! Maybe I'll even ask {personalized_dialog(gender,"opposite_him_her")} on a date.
+I might even see that really cute {personalized_dialog(char_gender,"love_interest")} again.
+Who knows! Maybe I'll even ask {personalized_dialog(char_gender,"opposite_him_her")} on a date.
 Nothing could possibly ruin this day!
 In the middle of your preparations to get ready for your weekend, 
 you hear an unfamiliar voice shouting just outside your house.
-{char_name.capitalize ()} should be inside, get {personalized_dialog(gender,"him_her")} now. 
-The High {personalized_dialog(gender,"enemy_leader")} wants {personalized_dialog(gender,"him_her")} alive and in one piece."
+"{char_name.capitalize ()} should be inside, get {personalized_dialog(char_gender,"him_her")} now. 
+The High {personalized_dialog(char_gender,"enemy_leader")} wants {personalized_dialog(char_gender,"him_her")} alive and in one piece."
 As you look out the window, you see a dozen strangely dressed 
-{personalized_dialog(gender,"men_women")} carrying large swords angrily moving towards your home.
+{personalized_dialog(char_gender,"men_women")} carrying large swords angrily moving towards your home.
 You're at your dad's old cabin, miles out of town. 
 Even if they went 80, it would take the police an hour to get out here, 
 and you're not sure if you can get cell signal anyway.
@@ -176,7 +177,7 @@ The forest is not far, I could run out there forever."""
         return story_text, player_choices, next_scenes
 
 # TODO: #75 BUG Tried to create filler scenes but it crashed when testing. 
-def closet_scene(char_name, gender, prior_death,discovered_powers):
+def closet_scene(char_name, char_gender, prior_death,discovered_powers):
     story_text = "To Be Continued"
 
     player_choices = {
@@ -190,7 +191,7 @@ def closet_scene(char_name, gender, prior_death,discovered_powers):
     return story_text, player_choices, next_scenes
 
 
-def forest_scene(char_name, gender, prior_death,discovered_powers):
+def forest_scene(char_name, char_gender, prior_death,discovered_powers):
     story_text = "To Be Continued"
 
     player_choices = {
