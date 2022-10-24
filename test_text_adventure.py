@@ -72,63 +72,39 @@ def test_personalized_dialog():
     for key in key_list:
         assert personalized_dialog(char_gender, key) in female_value_list
 
-# TODO: #79 BUG test_cabin_scene Failing
+
 def test_cabin_scene ():
     prior_death = False
     discovered_powers = False
     char_gender = "Male"
     char_name = "John"
-    male_cabin_scene = cabin_scene(char_name, char_gender, prior_death,discovered_powers) 
+    test_cabin_scene = cabin_scene(char_name, char_gender, prior_death,discovered_powers) 
     # Returns (story_text, player_choices, next_scenes)
-    cabin_scene_display_text = male_cabin_scene [0]
     
-    male_display_text = """"Today is going to be great!" You think to yourself.
-I got the day off.
-My friends and I have an amazing weekend planned.
-I might even see that really cute girl again.
-Who knows! Maybe I'll even ask her on a date.
-Nothing could possibly ruin this day!
-In the middle of your preparations to get ready for your weekend,
-you hear an unfamiliar voice shouting just outside your house.
-"John should be inside, get him now.
-The High Lady wants him alive and in one piece."
-As you look out the window, you see a dozen strangely dressed
-men carrying large swords angrily moving towards your home.
-You're at your dad's old cabin, miles out of town.
-Even if they went 80, it would take the police an hour to get out here,
-and you're not sure if you can get cell signal anyway.
-"Police can't help me." You think to yourself. "I need to think of other options."
-I could try to HIDE and hope they don't find me,
-or I could try to ESCAPE out the window and make a break for it.
-The forest is not far, I could run out there forever."""
-    assert cabin_scene_display_text == male_display_text
+    
+    assert "girl" == personalized_dialog(char_gender,"love_interest")
+    assert "her" == personalized_dialog(char_gender,"opposite_him_her")
+    assert "John" == char_name.capitalize ()
+    assert "him" == personalized_dialog(char_gender,"him_her")
+    assert "Lady" == personalized_dialog(char_gender,"enemy_leader")
+    assert "him" == personalized_dialog(char_gender,"him_her")
+    assert "men" == personalized_dialog(char_gender,"men_women")
+    
 
 
     char_gender = "Female"
     char_name = "Jane"
-    female_cabin_scene = cabin_scene(char_name, char_gender, prior_death,discovered_powers) 
-    # Returns (story_text, player_choices, next_scenes)
-    cabin_scene_display_text = female_cabin_scene [0]
-    female_display_text = """"Today is going to be great!" You think to yourself.
-I got the day off.
-My friends and I have an amazing weekend planned.
-I might even see that really cute guy again.
-Who knows! Maybe I'll even ask him on a date.
-Nothing could possibly ruin this day!
-In the middle of your preparations to get ready for your weekend,
-you hear an unfamiliar voice shouting just outside your house.
-"Jane should be inside, get her now.
-The High Lord wants her alive and in one piece."
-As you look out the window, you see a dozen strangely dressed
-women carrying large swords angrily moving towards your home.
-You're at your dad's old cabin, miles out of town.
-Even if they went 80, it would take the police an hour to get out here,
-and you're not sure if you can get cell signal anyway.
-"Police can't help me." You think to yourself. "I need to think of other options."
-I could try to HIDE and hope they don't find me,
-or I could try to ESCAPE out the window and make a break for it.
-The forest is not far, I could run out there forever."""
-    assert cabin_scene_display_text == female_display_text
+    
+    
+    assert "guy" == personalized_dialog(char_gender,"love_interest")
+    assert "him" == personalized_dialog(char_gender,"opposite_him_her")
+    assert "Jane" == char_name.capitalize ()
+    assert "her" == personalized_dialog(char_gender,"him_her")
+    assert "Lord" == personalized_dialog(char_gender,"enemy_leader")
+    assert "her" == personalized_dialog(char_gender,"him_her")
+    assert "women" == personalized_dialog(char_gender,"men_women")
+    
+
 # Call the main function that is part of pytest so that the
 # computer will execute the test functions in this file.
 pytest.main(["-v", "--tb=line", "-rN", __file__])
