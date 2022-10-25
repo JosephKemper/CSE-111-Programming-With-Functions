@@ -7,11 +7,6 @@ current_options = []
 current_scene = []
 next_scenes = []
 
-# Scene Counters meant to help track different options inside of a scene
-# TODO: #84 Figure out how to dynamically track what option someone will get from a scene.
-
-
-
 
 def main ():
     sg.theme("default1")   
@@ -20,6 +15,7 @@ def main ():
     char_name = char_info[0]
     char_gender = char_info[1]
 
+    # TODO #87 Get current_scene to update based on player choice
 
     # Maps the player choices to the variable current_scene
     current_scene = cabin_scene(char_name, char_gender)
@@ -33,8 +29,7 @@ def main ():
 
     # Pulls display text from current scene to display to user
     display_text = current_scene [0]
-    display_text = str(display_text)
-    print(display_text)
+    
     
     # Pulls returned options from current scene to be mapped to display
     current_options = current_scene [1]
@@ -54,10 +49,7 @@ def main ():
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == "Cancel": # if user closes window or clicks cancel
             break
-        elif event == option_1:
-            current_scene = first_scene
-        elif event == option_2:
-            current_scene = second_scene
+        
     window.close()
 
 def personalized_dialog (char_gender, key):
@@ -179,7 +171,6 @@ The forest is not far, I could run out there forever."""
 
     return story_text, player_choices, next_scenes
 
-# TODO: #75 BUG Tried to create filler scenes but it crashed when testing. 
 #TODO: #83 Build out closet scene
 def closet_scene(char_name, char_gender):
     story_text = f"""You quickly duck in the closet and hide, 
@@ -206,13 +197,46 @@ They do want you in one piece after all ... which is hopefully a good thing."""
 
     return story_text, player_choices, next_scenes
 
-
+# TODO: Build out Forest Scene
 def forest_scene(char_name, char_gender):
-    story_text = "To Be Continued"
+    story_text = f"""You carefully look out the back window, 
+making sure not to be seen, 
+waiting until all of the cultists start making their way into the front door. 
+You quickly open the window and run as fast as you can into the forest.
+Just as you get to the tree line you hear someone yell behind you 
+{personalized_dialog(char_gender, he_she)}'s running into the forest. The yelling and loud footsteps behind you, 
+tells you that the whole group is chasing after you and drives you to run faster. 
+You duck behind a bush, then notice a cave in the side of the nearby mountain 
+and quickly run for it.
+As you sprint to the cave, a giant sword flies so close to your head that it nicks your ear. 
+You almost feel as though the force of the wind from the sword flying by you might have knocked you over, 
+but the force of trees exploding into little pieces of shrapnel in front of you after the sword tore through it 
+and the tree in front of it certainly did knock you over, and seeing the sword fly back over your face, 
+barely missing your nose as you tumble to the ground makes you grateful you only hit your head on a rock.
+As you quickly struggle to your feet, feeling a little disoriented from the explosion, 
+you don't stop to listen to the argument between two of the cultists not far behind you. 
+You just run. You run for your life. 
+You run with all the energy of two trees exploding into little pieces of shrapnel that are still covering much of your body.
+As you duck into the cave, you stop in horror to find it barely goes back 6 feet. 
+With the sun behind the mountain that 6 feet is certainly dark, 
+but the pain from hundreds of pieces of wood embedded into your flesh testifies that what you thought you knew cannot be true. 
+Hundreds of points of terrible pain and the memory of a giant sword flying back over your face, 
+returning as though on command to its wielder, leaves you with a perfect conviction, 
+that there is a lot you do not know about the world. There is a lot even science does not know about the world.
+You stand there, back pressed firmly against the rock, 
+in perfect silence for what feels like an eternity, wrapped in a gem, and gifted back to you. 
+Waiting. Listening. Feeling. But there's more. So much more. 
+Part of you wants to just melt into the rock and hope these freaks never find you. 
+Part of you wants to grab the nearby branch, left over from one of the exploding trees, 
+and see how many of them you can take out. Part of you wants to fall to your knees and cry, 
+but you know there is no time for that right now.
+What do you want to do:
+Embrace the weird and try to MERGE into the rock,
+or pick up the BRANCH and try to fight?"""
 
     player_choices = {
-            "option_1":"not enabled",
-            "option_2":"not enabled"}
+            "option_1":"MERGE",
+            "option_2":"BRANCH"}
 
     next_scenes = {
         "option_1":"filler_0",
