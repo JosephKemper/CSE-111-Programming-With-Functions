@@ -21,7 +21,7 @@ any of the following:
 24 Oct 2022     0.5     Fixed bug in test_cabin_scene function
 24 Oct 2022     1       Expanded test_cabin_scene function to include more tests and started writing closet scene.
 24 Oct 2022     1       Redid plan for how to organize the app to a simpler format, and tried to get the buttons working
-
+24 Oct 2022     1       Continued trying to get player choice buttons to work. Narrowed down the problem to the next scene not updating properly.
 
 2. In I-Learn, submit this completed text file, your Python program, your
 Python test file, and any program data files such as .txt and .csv files.
