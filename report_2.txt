@@ -19,6 +19,7 @@ any of the following:
    Date       (hours)   Description of Work
 ----------  ----------  -------------------------
 24 Oct 2022     0.5     Fixed bug in test_cabin_scene function
+24 Oct 2022     1       Expanded test_cabin_scene function to include more tests and started writing closet scene.
 
 
 2. In I-Learn, submit this completed text file, your Python program, your
