@@ -1,4 +1,4 @@
-from text_adventure import personalized_dialog, cabin_scene
+from text_adventure import personalized_dialog, cabin_scene, closet_scene, forest_scene
 import pytest
 
 
@@ -80,7 +80,14 @@ def test_cabin_scene ():
     char_name = "John"
     test_cabin_scene = cabin_scene(char_name, char_gender, prior_death,discovered_powers) 
     # Returns (story_text, player_choices, next_scenes)
-    
+
+    next_scenes = test_cabin_scene [2]
+    assert next_scenes ["option_1"] == closet_scene 
+    assert next_scenes ["option_2"] == forest_scene
+
+    player_choices = test_cabin_scene [1]
+    assert player_choices ["option_1"] == "HIDE"
+    assert player_choices ["option_2"] == "ESCAPE"
     
     assert "girl" == personalized_dialog(char_gender,"love_interest")
     assert "her" == personalized_dialog(char_gender,"opposite_him_her")
@@ -90,11 +97,8 @@ def test_cabin_scene ():
     assert "him" == personalized_dialog(char_gender,"him_her")
     assert "men" == personalized_dialog(char_gender,"men_women")
     
-
-
     char_gender = "Female"
     char_name = "Jane"
-    
     
     assert "guy" == personalized_dialog(char_gender,"love_interest")
     assert "him" == personalized_dialog(char_gender,"opposite_him_her")
@@ -104,6 +108,8 @@ def test_cabin_scene ():
     assert "her" == personalized_dialog(char_gender,"him_her")
     assert "women" == personalized_dialog(char_gender,"men_women")
     
+
+
 
 # Call the main function that is part of pytest so that the
 # computer will execute the test functions in this file.

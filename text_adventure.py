@@ -7,12 +7,18 @@ current_options = []
 current_scene = []
 next_scenes = []
 
+# Scene Counters meant to help track different options inside of a scene
+# TODO: #84 Figure out how to dynamically track what option someone will get from a scene.
+cabin_scene_counter = 0
+forest_scene_counter = 0
+closet_scene_counter = 0
+
+
+
 def main ():
     sg.theme("default1")   
     # All the stuff inside your window.
     char_info = character_creation()
-    prior_death = False
-    discovered_powers = False
     char_name = char_info[0]
     char_gender = char_info[1]
 
@@ -140,13 +146,13 @@ def character_creation ():
     window.close()
 
 
-def cabin_scene(char_name, char_gender, prior_death,discovered_powers):
+def cabin_scene(char_name, char_gender, cabin_scene_counter):
     """
     This function is used to stage user interaction 
     for activities that happen in the cabin scene of the story.
     """
 
-    if prior_death == False:
+    if cabin_scene_counter == 0:
         story_text = f""""Today is going to be great!" You think to yourself.
 I got the day off.
 My friends and I have an amazing weekend planned.
@@ -166,6 +172,7 @@ and you're not sure if you can get cell signal anyway.
 I could try to HIDE and hope they don't find me, 
 or I could try to ESCAPE out the window and make a break for it. 
 The forest is not far, I could run out there forever."""
+        cabin_scene_counter += 1
         player_choices = {
             "option_1":"HIDE",
             "option_2":"ESCAPE"}
@@ -177,12 +184,25 @@ The forest is not far, I could run out there forever."""
         return story_text, player_choices, next_scenes
 
 # TODO: #75 BUG Tried to create filler scenes but it crashed when testing. 
+#TODO: #83 Build out closet scene
 def closet_scene(char_name, char_gender, prior_death,discovered_powers):
-    story_text = "To Be Continued"
+    story_text = f"""You quickly duck in the closet and hide, 
+but as they continue to search the house determined to find you, 
+your nerves start to get the better of you.
+You hear several people moving closer to the closet door.
+When the door opens, you see six large {personalized_dialog(char_gender, men_women)}, 
+dressed in blood red robes with masks covering their faces, 
+and giant swords pointing towards you. 
+Your father's old shotgun is right behind you. 
+If it even works ... or is loaded, you might be able to get a shot off ...
+but these robed lunatics might give professional bodybuilders a run for their money.
+Or instead of FIGHTing, you could just GIVE UP and hope for the best. 
+They do want you in one piece after all ... which is hopefully a good thing."""
+
 
     player_choices = {
-            "option_1":"not enabled",
-            "option_2":"not enabled"}
+        "option_1":"FIGHT",
+        "option_2":"GIVE UP"}
 
     next_scenes = {
         "option_1":"filler_0",
@@ -201,6 +221,7 @@ def forest_scene(char_name, char_gender, prior_death,discovered_powers):
     next_scenes = {
         "option_1":"filler_0",
         "option_2":"filler_1"}
+
 
     return story_text, player_choices, next_scenes
 
