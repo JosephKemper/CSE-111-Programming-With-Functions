@@ -9,9 +9,7 @@ next_scenes = []
 
 # Scene Counters meant to help track different options inside of a scene
 # TODO: #84 Figure out how to dynamically track what option someone will get from a scene.
-cabin_scene_counter = 0
-forest_scene_counter = 0
-closet_scene_counter = 0
+
 
 
 
@@ -24,7 +22,7 @@ def main ():
 
 
     # Maps the player choices to the variable current_scene
-    current_scene = cabin_scene(char_name, char_gender, prior_death, discovered_powers)
+    current_scene = cabin_scene(char_name, char_gender)
     # Returns (story_text, player_choices, next_scenes)
     
     # Format of dictionary values
@@ -146,14 +144,12 @@ def character_creation ():
     window.close()
 
 
-def cabin_scene(char_name, char_gender, cabin_scene_counter):
+def cabin_scene(char_name, char_gender):
     """
     This function is used to stage user interaction 
     for activities that happen in the cabin scene of the story.
     """
-
-    if cabin_scene_counter == 0:
-        story_text = f""""Today is going to be great!" You think to yourself.
+    story_text = f""""Today is going to be great!" You think to yourself.
 I got the day off.
 My friends and I have an amazing weekend planned.
 I might even see that really cute {personalized_dialog(char_gender,"love_interest")} again.
@@ -172,20 +168,20 @@ and you're not sure if you can get cell signal anyway.
 I could try to HIDE and hope they don't find me, 
 or I could try to ESCAPE out the window and make a break for it. 
 The forest is not far, I could run out there forever."""
-        cabin_scene_counter += 1
-        player_choices = {
+        
+    player_choices = {
             "option_1":"HIDE",
             "option_2":"ESCAPE"}
 
-        next_scenes = {
+    next_scenes = {
             "option_1":closet_scene,
             "option_2":forest_scene}
 
-        return story_text, player_choices, next_scenes
+    return story_text, player_choices, next_scenes
 
 # TODO: #75 BUG Tried to create filler scenes but it crashed when testing. 
 #TODO: #83 Build out closet scene
-def closet_scene(char_name, char_gender, prior_death,discovered_powers):
+def closet_scene(char_name, char_gender):
     story_text = f"""You quickly duck in the closet and hide, 
 but as they continue to search the house determined to find you, 
 your nerves start to get the better of you.
@@ -211,7 +207,7 @@ They do want you in one piece after all ... which is hopefully a good thing."""
     return story_text, player_choices, next_scenes
 
 
-def forest_scene(char_name, char_gender, prior_death,discovered_powers):
+def forest_scene(char_name, char_gender):
     story_text = "To Be Continued"
 
     player_choices = {
