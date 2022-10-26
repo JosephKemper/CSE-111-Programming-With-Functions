@@ -3,15 +3,49 @@ the following three questions.
 
 1. Describe an experience you had this semester where you saw the power of
 functions.
-
+As of when I am writing this, I have not yet completed the Lesson 13 prove. 
+I have poured more than 25 hours into completing it 
+and will likely put at least three more in tomorrow before turning it in. 
+I hope it will be working by the time I get it done. 
+And even though I still cannot get it to go past the first page without crashing
+writing this program has taught me the value of functions.
+I can use the same code for multiple things, and then when I run into a problem, 
+instead of having to sift through for lines of copied and pasted code, 
+I just go back to the function and fix it there, then it gets fixed everywhere. 
+And while the project I am working on right now, does not use a lot of repeated code, 
+I still see where it can quickly become critical to writing good code, 
+especially as programs get bigger. 
 
 
 2. In your judgment, what is the value of test functions?
 
+From the moment I learned about test functions, 
+I realized that they are going to be critical tools that enable you to not only write code, 
+but to write quality code. I also realized that test functions were going to be something
+I could use to set myself apart as a programmer, because in the classroom setting, 
+most people are only going to see them as annoying, but in real life, 
+when both the code is designed to work with them and the test functions are built properly
+test functions can be a life saver in the value they will provide. 
+As the lessons continued on after we learned about test functions, 
+I initially had problems trying to figure out how and when to include them, 
+but as I got towards the end of my Lesson 13 Prove assignment, 
+I quickly found that part of my problem was that I was not thinking about testing the code
+I was just thinking about writing the code. Once I realized, my whole perspective changed. 
+And I think that it will change for the better, 
+simply because I finally learned how to write code with the intention of testing it. 
 
 
 3. Describe your process for troubleshooting and fixing a program that
 has a problem. What is one thing you can do to improve your process?
 
-
+What I have done in the past, 
+(namely because I had not learned how to write code with the intention of it being tested)
+is that I used the debugger mode 
+and carefully combed through the code to see what the problem was and where. 
+I will still likely do that, but now that I have a better understanding of test functions
+part of my troubleshooting will come as I think about how to write the code in the first place. 
+I will write with the intention of testing the code and figuring out how it should best work. 
+I will likely still use the debugger simply because I enjoy seeing what happens behind the scenes
+I also want to get better at reading code and finding the problems within. 
+I expect that will come with time. 
 
