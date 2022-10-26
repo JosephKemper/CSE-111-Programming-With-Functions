@@ -18,7 +18,7 @@ def main ():
 
 
     # Maps the player choices to the variable current_scene
-    current_scene = cabin_scene(char_name, char_gender)
+    current_scene = cabin_scene_display(char_name, char_gender)
     # Returns (story_text, player_choices, next_scenes)
 
     # Pulls display text from current scene to display to user
@@ -143,25 +143,15 @@ def cabin_scene(char_name, char_gender):
     This function is used to stage user interaction 
     for activities that happen in the cabin scene of the story.
     """
-    story_text = f""""Today is going to be great!" You think to yourself.
-I got the day off.
-My friends and I have an amazing weekend planned.
-I might even see that really cute {personalized_dialog(char_gender,"love_interest")} again.
-Who knows! Maybe I'll even ask {personalized_dialog(char_gender,"opposite_him_her")} on a date.
-Nothing could possibly ruin this day!
-In the middle of your preparations to get ready for your weekend, 
-you hear an unfamiliar voice shouting just outside your house.
-"{char_name.capitalize ()} should be inside, get {personalized_dialog(char_gender,"him_her")} now. 
-The High {personalized_dialog(char_gender,"enemy_leader")} wants {personalized_dialog(char_gender,"him_her")} alive and in one piece."
-As you look out the window, you see a dozen strangely dressed 
-{personalized_dialog(char_gender,"men_women")} carrying large swords angrily moving towards your home.
-You're at your dad's old cabin, miles out of town. 
-Even if they went 80, it would take the police an hour to get out here, 
-and you're not sure if you can get cell signal anyway.
-"Police can't help me." You think to yourself. "I need to think of other options."
-I could try to HIDE and hope they don't find me, 
-or I could try to ESCAPE out the window and make a break for it. 
-The forest is not far, I could run out there forever."""
+    dialog_used = {
+        "love_interest" : personalized_dialog(char_gender,"love_interest"),
+        "opposite_him_her" : personalized_dialog(char_gender,"opposite_him_her"),
+        "char_name" : char_name.capitalize (),
+        "him_her" : personalized_dialog(char_gender,"him_her"),
+        "enemy_leader" : personalized_dialog(char_gender,"enemy_leader"),
+        "him_her" : personalized_dialog(char_gender,"him_her"),
+        "men_women" : personalized_dialog(char_gender,"men_women")}
+    
         
     player_choices = {
             "option_1":"HIDE",
@@ -170,8 +160,53 @@ The forest is not far, I could run out there forever."""
     next_scenes = {
             "option_1":closet_scene,
             "option_2":forest_scene}
+            
+    return dialog_used, player_choices, next_scenes
 
-    return story_text, player_choices, next_scenes
+def cabin_scene_display (char_name, char_gender):
+    scene_data = cabin_scene(char_name,char_gender)
+    # Returns (dialog_used, player_choices, next_scenes)
+    dialog_used = scene_data[0]
+    player_choices = scene_data[1]
+    next_scenes = scene_data [2]
+    
+    story_text = f""""Today is going to be great!" You think to yourself.
+I got the day off.
+My friends and I have an amazing weekend planned.
+I might even see that really cute {dialog_used["love_interest"]} again.
+Who knows! Maybe I'll even ask {dialog_used["opposite_him_her"]} on a date.
+Nothing could possibly ruin this day!
+In the middle of your preparations to get ready for your weekend, 
+you hear an unfamiliar voice shouting just outside your house.
+"{dialog_used [char_name]} should be inside, get {dialog_used["him_her"]} now. 
+The High {dialog_used["enemy_leader"]} wants {dialog_used["him_her"]} alive and in one piece."
+As you look out the window, you see a dozen strangely dressed 
+{dialog_used["men_women"]} carrying large swords angrily moving towards your home.
+You're at your dad's old cabin, miles out of town. 
+Even if they went 80, it would take the police an hour to get out here, 
+and you're not sure if you can get cell signal anyway.
+"Police can't help me." You think to yourself. "I need to think of other options."
+I could try to HIDE and hope they don't find me, 
+or I could try to ESCAPE out the window and make a break for it. 
+The forest is not far, I could run out there forever."""
+    
+    layout = [  [sg.Text(story_text) ],
+        [sg.Radio(player_choices ["option_1"], "RADIO", key= "-HIDE-", default= True),
+                sg.Radio(player_choices ["option_2"], "RADIO", key= "-ESCAPE-")],
+                [sg.Submit() ,sg.Cancel()] ]
+
+    window = sg.Window('The Ultimate Choose Your Own Adventure Story', layout)
+    # Event Loop to process "events" and get the "values" of the inputs
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+            break
+            window.close()
+        elif event == "Submit":
+            if values == ["-HIDE-"]:
+                next_scenes ["option_1"](char_name, char_gender)
+            elif values ["-ESCAPE-"]:
+                next_scenes ["option_2"](char_name, char_gender)
 
 #TODO: #83 Build out closet scene
 def closet_scene(char_name, char_gender):
