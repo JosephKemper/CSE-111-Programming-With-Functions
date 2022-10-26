@@ -2,39 +2,38 @@
 import PySimpleGUI as sg
 
 
-# Setting up variables as lists to allow for dynamic scene mapping
-current_options = []
-current_scene = []
-next_scenes = []
-
-
 def main ():
     sg.theme("default1")   
     # All the stuff inside your window.
     char_info = character_creation()
+    # character_creation returns the following
+    # (char_name, char_gender, window.close())
+    # The window.close closes the character_creation window.
     char_name = char_info[0]
     char_gender = char_info[1]
 
     # TODO #87 Get current_scene to update based on player choice
+    # Build each scene into a self sustaining window that 
+    # will work similar to how the character creation window works
+
 
     # Maps the player choices to the variable current_scene
     current_scene = cabin_scene(char_name, char_gender)
     # Returns (story_text, player_choices, next_scenes)
-    
-    # Format of dictionary values
-    # {"option_1":first_scene,"option_2":second_scene}
-    next_scenes = current_scene [2]
-    first_scene = next_scenes ["option_1"]
-    second_scene = next_scenes ["option_2"]
 
     # Pulls display text from current scene to display to user
     display_text = current_scene [0]
-    
     
     # Pulls returned options from current scene to be mapped to display
     current_options = current_scene [1]
     option_1 = current_options ["option_1"]
     option_2 = current_options ["option_2"]
+
+    # Format of dictionary values
+    # {"option_1":first_scene,"option_2":second_scene}
+    next_scenes = current_scene [2]
+    first_scene = next_scenes ["option_1"]
+    second_scene = next_scenes ["option_2"]
 
     layout = [  [sg.Text(display_text) ],
         [sg.Button(option_1),sg.Button(option_2)], 
@@ -49,8 +48,11 @@ def main ():
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == "Cancel": # if user closes window or clicks cancel
             break
-        
+    # TODO: #89 Possibly put another call to current_scene here
+    # Another possibility is to build a while loop in a function that will be responsible for calling other functions. 
     window.close()
+
+
 
 def personalized_dialog (char_gender, key):
     """
