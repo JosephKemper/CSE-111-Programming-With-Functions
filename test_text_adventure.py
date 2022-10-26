@@ -72,7 +72,7 @@ def test_personalized_dialog():
     for key in key_list:
         assert personalized_dialog(char_gender, key) in female_value_list
 
-
+# TODO: #92 New adjustments to cabin_scene has caused this test to fail. 
 def test_cabin_scene ():
     prior_death = False
     discovered_powers = False

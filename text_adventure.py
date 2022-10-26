@@ -169,7 +169,7 @@ def cabin_scene_display (char_name, char_gender):
     dialog_used = scene_data[0]
     player_choices = scene_data[1]
     next_scenes = scene_data [2]
-    
+
     story_text = f""""Today is going to be great!" You think to yourself.
 I got the day off.
 My friends and I have an amazing weekend planned.
@@ -178,7 +178,7 @@ Who knows! Maybe I'll even ask {dialog_used["opposite_him_her"]} on a date.
 Nothing could possibly ruin this day!
 In the middle of your preparations to get ready for your weekend, 
 you hear an unfamiliar voice shouting just outside your house.
-"{dialog_used [char_name]} should be inside, get {dialog_used["him_her"]} now. 
+"{dialog_used ["char_name"]} should be inside, get {dialog_used["him_her"]} now. 
 The High {dialog_used["enemy_leader"]} wants {dialog_used["him_her"]} alive and in one piece."
 As you look out the window, you see a dozen strangely dressed 
 {dialog_used["men_women"]} carrying large swords angrily moving towards your home.
