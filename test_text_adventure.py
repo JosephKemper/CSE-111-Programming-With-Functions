@@ -78,35 +78,38 @@ def test_cabin_scene ():
     discovered_powers = False
     char_gender = "Male"
     char_name = "John"
-    test_cabin_scene = cabin_scene(char_name, char_gender, prior_death,discovered_powers) 
-    # Returns (story_text, player_choices, next_scenes)
+    test_cabin_scene = cabin_scene(char_name, char_gender) 
+    # Returns (dialog_used, player_choices, next_scenes, window.close())
 
-    next_scenes = test_cabin_scene [2]
-    assert next_scenes ["option_1"] == closet_scene 
-    assert next_scenes ["option_2"] == forest_scene
+    dialog_used = test_cabin_scene [0]
+    assert dialog_used ["love_interest"] == "girl"
+    assert dialog_used ["opposite_him_her"] == "her"
+    assert dialog_used ["char_name"] == "John"
+    assert dialog_used ["him_her"] == "him"
+    assert dialog_used ["enemy_leader"] == "Lady"
+    assert dialog_used ["him_her"] == "him"
+    assert dialog_used ["men_women"] == "men"
+    
+
 
     player_choices = test_cabin_scene [1]
     assert player_choices ["option_1"] == "HIDE"
     assert player_choices ["option_2"] == "ESCAPE"
-    
-    assert "girl" == personalized_dialog(char_gender,"love_interest")
-    assert "her" == personalized_dialog(char_gender,"opposite_him_her")
-    assert "John" == char_name.capitalize ()
-    assert "him" == personalized_dialog(char_gender,"him_her")
-    assert "Lady" == personalized_dialog(char_gender,"enemy_leader")
-    assert "him" == personalized_dialog(char_gender,"him_her")
-    assert "men" == personalized_dialog(char_gender,"men_women")
+    next_scenes = test_cabin_scene [2]
+    assert next_scenes ["option_1"] == closet_scene 
+    assert next_scenes ["option_2"] == forest_scene
     
     char_gender = "Female"
     char_name = "Jane"
     
-    assert "guy" == personalized_dialog(char_gender,"love_interest")
-    assert "him" == personalized_dialog(char_gender,"opposite_him_her")
-    assert "Jane" == char_name.capitalize ()
-    assert "her" == personalized_dialog(char_gender,"him_her")
-    assert "Lord" == personalized_dialog(char_gender,"enemy_leader")
-    assert "her" == personalized_dialog(char_gender,"him_her")
-    assert "women" == personalized_dialog(char_gender,"men_women")
+    assert dialog_used ["love_interest"] == "guy"
+    assert dialog_used ["opposite_him_her"] == "him"
+    assert dialog_used ["char_name"] == "Jane"
+    assert dialog_used ["him_her"] == "her"
+    assert dialog_used ["enemy_leader"] == "Lord"
+    assert dialog_used ["him_her"] == "her"
+    assert dialog_used ["men_women"] == "women"
+
     
 
 
