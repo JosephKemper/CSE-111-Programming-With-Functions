@@ -18,39 +18,39 @@ def main ():
 
 
     # Maps the player choices to the variable current_scene
-    current_scene = cabin_scene_display(char_name, char_gender)
+    cabin_scene(char_name, char_gender)
     # Returns (story_text, player_choices, next_scenes)
 
-    # Pulls display text from current scene to display to user
-    display_text = current_scene [0]
+    # # Pulls display text from current scene to display to user
+    # display_text = current_scene [0]
     
-    # Pulls returned options from current scene to be mapped to display
-    current_options = current_scene [1]
-    option_1 = current_options ["option_1"]
-    option_2 = current_options ["option_2"]
+    # # Pulls returned options from current scene to be mapped to display
+    # current_options = current_scene [1]
+    # option_1 = current_options ["option_1"]
+    # option_2 = current_options ["option_2"]
 
-    # Format of dictionary values
-    # {"option_1":first_scene,"option_2":second_scene}
-    next_scenes = current_scene [2]
-    first_scene = next_scenes ["option_1"]
-    second_scene = next_scenes ["option_2"]
+    # # Format of dictionary values
+    # # {"option_1":first_scene,"option_2":second_scene}
+    # next_scenes = current_scene [2]
+    # first_scene = next_scenes ["option_1"]
+    # second_scene = next_scenes ["option_2"]
 
-    layout = [  [sg.Text(display_text) ],
-        [sg.Button(option_1),sg.Button(option_2)], 
-        [sg.Button("Cancel")] ]
+    # layout = [  [sg.Text(display_text) ],
+    #     [sg.Button(option_1),sg.Button(option_2)], 
+    #     [sg.Button("Cancel")] ]
 
     
-    # TODO: #77 BUG Options 1 and 2 not working. 
-    # Create the Window
-    window = sg.Window("The Ultimate Choose Your Own Adventure Story", layout)
-    # Event Loop to process "events" and get the "values" of the inputs
-    while True:
-        event, values = window.read()
-        if event == sg.WIN_CLOSED or event == "Cancel": # if user closes window or clicks cancel
-            break
-    # TODO: #89 Possibly put another call to current_scene here
-    # Another possibility is to build a while loop in a function that will be responsible for calling other functions. 
-    window.close()
+    # # TODO: #77 BUG Options 1 and 2 not working. 
+    # # Create the Window
+    # window = sg.Window("The Ultimate Choose Your Own Adventure Story", layout)
+    # # Event Loop to process "events" and get the "values" of the inputs
+    # while True:
+    #     event, values = window.read()
+    #     if event == sg.WIN_CLOSED or event == "Cancel": # if user closes window or clicks cancel
+    #         break
+    # # TODO: #89 Possibly put another call to current_scene here
+    # # Another possibility is to build a while loop in a function that will be responsible for calling other functions. 
+    # window.close()
 
 
 
@@ -151,24 +151,6 @@ def cabin_scene(char_name, char_gender):
         "enemy_leader" : personalized_dialog(char_gender,"enemy_leader"),
         "him_her" : personalized_dialog(char_gender,"him_her"),
         "men_women" : personalized_dialog(char_gender,"men_women")}
-    
-        
-    player_choices = {
-            "option_1":"HIDE",
-            "option_2":"ESCAPE"}
-
-    next_scenes = {
-            "option_1":closet_scene,
-            "option_2":forest_scene}
-            
-    return dialog_used, player_choices, next_scenes
-
-def cabin_scene_display (char_name, char_gender):
-    scene_data = cabin_scene(char_name,char_gender)
-    # Returns (dialog_used, player_choices, next_scenes)
-    dialog_used = scene_data[0]
-    player_choices = scene_data[1]
-    next_scenes = scene_data [2]
 
     story_text = f""""Today is going to be great!" You think to yourself.
 I got the day off.
@@ -189,10 +171,16 @@ and you're not sure if you can get cell signal anyway.
 I could try to HIDE and hope they don't find me, 
 or I could try to ESCAPE out the window and make a break for it. 
 The forest is not far, I could run out there forever."""
+        
+    player_choices = {
+            "option_1":"HIDE",
+            "option_2":"ESCAPE"}
+            
+
     
     layout = [  [sg.Text(story_text) ],
-        [sg.Radio(player_choices ["option_1"], "RADIO", key= "-HIDE-", default= True),
-                sg.Radio(player_choices ["option_2"], "RADIO", key= "-ESCAPE-")],
+        [sg.Radio(player_choices ["option_1"], "RADIO", key= "-option_1-"),
+                sg.Radio(player_choices ["option_2"], "RADIO", key= "-option_2-")],
                 [sg.Submit() ,sg.Cancel()] ]
 
     window = sg.Window('The Ultimate Choose Your Own Adventure Story', layout)
@@ -203,18 +191,26 @@ The forest is not far, I could run out there forever."""
             break
             window.close()
         elif event == "Submit":
-            if values == ["-HIDE-"]:
-                next_scenes ["option_1"](char_name, char_gender)
-            elif values ["-ESCAPE-"]:
-                next_scenes ["option_2"](char_name, char_gender)
+            if values == ["-option_1-"]:
+                closet_scene(char_name, char_gender)
+            elif values ["-option_2-"]:
+                forest_scene(char_name, char_gender)
+
+    return dialog_used, player_choices
+
+
 
 #TODO: #83 Build out closet scene
 def closet_scene(char_name, char_gender):
+
+    dialog_used = {"men_women": personalized_dialog(char_gender, "men_women")
+        }
+
     story_text = f"""You quickly duck in the closet and hide, 
 but as they continue to search the house determined to find you, 
 your nerves start to get the better of you.
 You hear several people moving closer to the closet door.
-When the door opens, you see six large {personalized_dialog(char_gender, men_women)}, 
+When the door opens, you see six large {dialog_used ["men_women"]}, 
 dressed in blood red robes with masks covering their faces, 
 and giant swords pointing towards you. 
 Your father's old shotgun is right behind you. 
@@ -231,8 +227,26 @@ They do want you in one piece after all ... which is hopefully a good thing."""
     next_scenes = {
         "option_1":"filler_0",
         "option_2":"filler_1"}
+    
+    layout = [  [sg.Text(story_text) ],
+        [sg.Radio(player_choices ["option_1"], "RADIO", key= "-option_1-", default= True),
+                sg.Radio(player_choices ["option_2"], "RADIO", key= "-option_2-")],
+                [sg.Submit() ,sg.Cancel()] ]
 
-    return story_text, player_choices, next_scenes
+    window = sg.Window('The Ultimate Choose Your Own Adventure Story', layout)
+    # Event Loop to process "events" and get the "values" of the inputs
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+            break
+            window.close()
+        elif event == "Submit":
+            if values == ["-option_1-"]:
+                next_scenes ["option_1"]
+            elif values ["-option_2-"]:
+                next_scenes ["option_2"]
+
+    return dialog_used, player_choices, next_scenes
 
 # TODO: Build out Forest Scene
 def forest_scene(char_name, char_gender):
@@ -241,7 +255,7 @@ making sure not to be seen,
 waiting until all of the cultists start making their way into the front door. 
 You quickly open the window and run as fast as you can into the forest.
 Just as you get to the tree line you hear someone yell behind you 
-{personalized_dialog(char_gender, he_she)}'s running into the forest. The yelling and loud footsteps behind you, 
+{personalized_dialog(char_gender, "he_she")}'s running into the forest. The yelling and loud footsteps behind you, 
 tells you that the whole group is chasing after you and drives you to run faster. 
 You duck behind a bush, then notice a cave in the side of the nearby mountain 
 and quickly run for it.
